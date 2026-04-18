@@ -2,7 +2,7 @@
 
 #ifdef VOXEL_PLATFORM_WINDOWS
 
-#include "Voxel/Application.h"
+    #include "Voxel/Application.h"
 
 extern Voxel::Application* Voxel::CreateApplication();
 

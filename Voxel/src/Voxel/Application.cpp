@@ -7,6 +7,7 @@ namespace Voxel {
 
 Application::Application() {
     m_Window = std::unique_ptr<Window>(Window::Create());
+    m_Window->SetEventCallback([this](Event& e) { OnEvent(e); });
 }
 
 Application::~Application() {}
@@ -17,6 +18,18 @@ void Application::Run() {
         glClear(GL_COLOR_BUFFER_BIT);
         m_Window->OnUpdate();
     }
+}
+
+void Application::OnEvent(Event& e) {
+    EventDispatcher dispatcher(e);
+    dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& e) { OnWindowClose(e); });
+
+    VOXEL_CORE_TRACE(e);
+}
+
+bool Application::OnWindowClose(WindowCloseEvent& e) {
+    m_Running = false;
+    return true;
 }
 
 }
