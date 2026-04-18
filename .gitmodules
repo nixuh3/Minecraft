@@ -1,0 +1,3 @@
+[submodule "Voxel/vendor/spdlog"]
+	path = Voxel/vendor/spdlog
+	url = https://github.com/gabime/spdlog.git
