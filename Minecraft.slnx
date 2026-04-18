@@ -1,7 +1,0 @@
-<Solution>
-  <Configurations>
-    <Platform Name="x64" />
-  </Configurations>
-  <Project Path="Sandbox/Sandbox.vcxproj" Id="dafd6c1b-9ecf-49e4-b566-6bd079e98a36" />
-  <Project Path="Voxel/Voxel.vcxproj" Id="fb5b6918-e885-4b8b-9489-8e571283ab76" />
-</Solution>
