@@ -1,6 +1,7 @@
 #pragma once
 
-#include "Core.h"
+#include "Voxel/Core.h"
+#include "Voxel/Events/Event.h"
 
 namespace Voxel {
 
@@ -14,4 +15,4 @@ class VOXEL_API Application {
 
 Application* CreateApplication();
 
-} // namespace Voxel
+}

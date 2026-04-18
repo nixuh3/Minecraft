@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Core.h"
+#include "Voxel/Core.h"
 #include "spdlog/spdlog.h"
+#include "spdlog/fmt/ostr.h"
+
 #include <memory>
 
 namespace Voxel {
@@ -32,4 +34,4 @@ class VOXEL_API Log {
 #define VOXEL_ERROR(...) ::Voxel::Log::GetClientLogger()->error(__VA_ARGS__)
 #define VOXEL_CRITICAL(...) ::Voxel::Log::GetClientLogger()->critical(__VA_ARGS__)
 
-} // namespace Voxel
+}

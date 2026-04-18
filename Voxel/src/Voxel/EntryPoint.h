@@ -7,7 +7,7 @@ extern Voxel::Application* Voxel::CreateApplication();
 int main(int argc, char** argv) {
     Voxel::Log::Init();
     VOXEL_CORE_WARN("Initalized Log");
-    VOXEL_INFO("Hello Var={0}", 5);
+    VOXEL_INFO("Hello Var={0}", 10);
 
     auto app = Voxel::CreateApplication();
     app->Run();
