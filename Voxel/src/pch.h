@@ -9,6 +9,8 @@
 #include <algorithm>
 #include <utility>
 
+#include "Voxel/Log.h"
+
 #ifdef VOXEL_PLATFORM_WINDOWS
     #include <Windows.h>
 #endif

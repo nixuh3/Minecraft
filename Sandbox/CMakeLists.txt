@@ -31,6 +31,7 @@ endif()
 
 # Copy the DLL next to Sandbox after build
 add_custom_command(TARGET Sandbox POST_BUILD
+    # COMMAND ${CMAKE_COMMAND} -E echo "Copying $<TARGET_FILE:Voxel> to $<TARGET_FILE_DIR:Sandbox>"
     COMMAND ${CMAKE_COMMAND} -E copy
         $<TARGET_FILE:Voxel>
         $<TARGET_FILE_DIR:Sandbox>

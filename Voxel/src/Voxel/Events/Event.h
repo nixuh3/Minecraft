@@ -3,7 +3,6 @@
 #include "Voxel/Core.h"
 
 #include <string>
-#include <functional>
 
 namespace Voxel {
 

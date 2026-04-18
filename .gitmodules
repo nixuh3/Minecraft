@@ -1,3 +1,6 @@
 [submodule "Voxel/vendor/spdlog"]
 	path = Voxel/vendor/spdlog
-	url = https://github.com/gabime/spdlog.git
+	url = https://github.com/gabime/spdlog.github
+[submodule "Voxel/vendor/glfw"]
+	path = Voxel/vendor/glfw
+	url = https://github.com/glfw/glfw.git
