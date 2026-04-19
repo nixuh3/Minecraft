@@ -3,6 +3,7 @@
 # -------------------------
 
 add_subdirectory(vendor/glfw)
+add_subdirectory(vendor/glad)
 
 find_package(OpenGL REQUIRED)
 
@@ -57,6 +58,7 @@ endif()
 
 target_link_libraries(Voxel PRIVATE
     glfw
+    glad
     OpenGL::GL
 )
 
