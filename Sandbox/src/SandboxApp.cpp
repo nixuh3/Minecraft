@@ -1,13 +1,17 @@
 #include "Voxel.h"
 
-class Sandbox : public Voxel::Application {
+class ExampleLayer : public Voxel::Layer {
   public:
-    Sandbox() {}
-    ~Sandbox() {}
+    ExampleLayer() : Layer("Example") {}
 
-
+    void OnUpdate() override { VOXEL_INFO("ExampleLayer::Update"); }
+    void OnEvent(Voxel::Event& e) override { VOXEL_TRACE(e); }
 };
 
-Voxel::Application* Voxel::CreateApplication() {
-    return new Sandbox();
-}
+class Sandbox : public Voxel::Application {
+  public:
+    Sandbox() { PushLayer(new ExampleLayer()); }
+    ~Sandbox() {}
+};
+
+Voxel::Application* Voxel::CreateApplication() { return new Sandbox(); }

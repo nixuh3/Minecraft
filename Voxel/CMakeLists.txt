@@ -2,9 +2,6 @@
 # Voxel shared library
 # -------------------------
 
-# Force runtime globally first
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-
 add_subdirectory(vendor/glfw)
 
 find_package(OpenGL REQUIRED)
@@ -20,9 +17,13 @@ set(VOXEL_SOURCES
     src/Voxel/EntryPoint.h
     src/Voxel/Log.h
     src/Voxel/Window.h
+    src/Voxel/Layer.h
+    src/Voxel/LayerStack.h
 
     src/Voxel/Application.cpp
     src/Voxel/Log.cpp
+    src/Voxel/Layer.cpp
+    src/Voxel/LayerStack.cpp
 
     src/Voxel/Events/Event.h
     src/Voxel/Events/MouseEvent.h
@@ -52,7 +53,6 @@ target_compile_definitions(Voxel
 # Static runtime on MSVC
 if(MSVC)
     target_compile_options(Voxel PRIVATE /utf-8)
-    set_property(TARGET Voxel PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 endif()
 
 target_link_libraries(Voxel PRIVATE
