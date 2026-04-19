@@ -4,3 +4,6 @@
 [submodule "Voxel/vendor/glfw"]
 	path = Voxel/vendor/glfw
 	url = https://github.com/glfw/glfw.git
+[submodule "Voxel/vendor/imgui"]
+	path = Voxel/vendor/imgui
+	url = https://github.com/nixuh3/imgui.git

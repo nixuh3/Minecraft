@@ -10,7 +10,11 @@ class ExampleLayer : public Voxel::Layer {
 
 class Sandbox : public Voxel::Application {
   public:
-    Sandbox() { PushLayer(new ExampleLayer()); }
+    Sandbox() {
+        PushLayer(new ExampleLayer());
+        PushOverlay(new Voxel::ImGuiLayer());
+    }
+
     ~Sandbox() {}
 };
 

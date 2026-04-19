@@ -17,6 +17,9 @@ target_include_directories(Sandbox
 
 target_link_libraries(Sandbox PRIVATE Voxel)
 
+# Ensure Voxel is built before Sandbox
+add_dependencies(Sandbox Voxel)
+
 target_compile_definitions(Sandbox PRIVATE
     VOXEL_PLATFORM_WINDOWS
     $<$<CONFIG:Debug>:VOXEL_DEBUG>
@@ -30,7 +33,8 @@ endif()
 
 # Copy the DLL next to Sandbox after build
 add_custom_command(TARGET Sandbox POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy
-        $<TARGET_FILE:Voxel>
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_RUNTIME_DLLS:Sandbox>
         $<TARGET_FILE_DIR:Sandbox>
+    COMMAND_EXPAND_LISTS
 )

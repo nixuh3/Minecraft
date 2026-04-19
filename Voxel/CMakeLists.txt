@@ -4,6 +4,7 @@
 
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
+add_subdirectory(vendor/imgui)
 
 find_package(OpenGL REQUIRED)
 
@@ -12,6 +13,11 @@ set(VOXEL_SOURCES
 
     src/Platform/Windows/WindowsWindow.h
     src/Platform/Windows/WindowsWindow.cpp
+    src/Platform/OpenGL/ImGuiOpenGLRenderer.h
+    src/Platform/OpenGL/ImGuiOpenGLRenderer.cpp
+
+    src/Voxel/ImGui/ImGuiLayer.h
+    src/Voxel/ImGui/ImGuiLayer.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h
@@ -59,6 +65,7 @@ endif()
 target_link_libraries(Voxel PRIVATE
     glfw
     glad
+    ImGui
     OpenGL::GL
 )
 

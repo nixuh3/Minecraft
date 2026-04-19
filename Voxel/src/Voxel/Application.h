@@ -19,12 +19,17 @@ class VOXEL_API Application {
     void PushLayer(Layer* layer);
     void PushOverlay(Layer* layer);
 
+    static Application& Get() { return *s_Instance; }
+    Window& GetWindow() const { return *m_Window; }
+
   private:
     bool OnWindowClose(WindowCloseEvent& e);
 
     std::unique_ptr<Window> m_Window;
     bool m_Running = true;
     LayerStack m_LayerStack;
+
+    inline static Application* s_Instance = nullptr;
 };
 
 Application* CreateApplication();
