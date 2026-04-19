@@ -5,6 +5,7 @@
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
 add_subdirectory(vendor/imgui)
+add_subdirectory(vendor/glm)
 
 find_package(OpenGL REQUIRED)
 
@@ -51,14 +52,16 @@ add_library(Voxel SHARED ${VOXEL_SOURCES})
 # Match VS filters to directory structure on disk
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
 
-target_include_directories(Voxel PRIVATE
+target_include_directories(Voxel PUBLIC
     "src"
     "vendor/spdlog/include"
+    "vendor/glm"
 )
 
 target_compile_definitions(Voxel
     PRIVATE
         VOXEL_BUILD_DLL
+    PUBLIC
         $<$<CONFIG:Debug>:VOXEL_DEBUG>
         $<$<CONFIG:Release>:VOXEL_RELEASE>
         $<$<CONFIG:Dist>:VOXEL_DIST>
@@ -70,11 +73,14 @@ if(MSVC)
     target_compile_options(Voxel PRIVATE /utf-8)
 endif()
 
-target_link_libraries(Voxel PRIVATE
-    glfw
-    glad
-    ImGui
-    OpenGL::GL
+target_link_libraries(Voxel
+    PUBLIC
+        glm::glm
+    PRIVATE
+        glfw
+        glad
+        ImGui
+        OpenGL::GL
 )
 
 target_precompile_headers(Voxel PRIVATE "src/pch.h")
