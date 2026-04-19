@@ -13,11 +13,18 @@ set(VOXEL_SOURCES
 
     src/Platform/Windows/WindowsWindow.h
     src/Platform/Windows/WindowsWindow.cpp
+    src/Platform/Windows/WindowsInput.h
+    src/Platform/Windows/WindowsInput.cpp
+    
     src/Platform/OpenGL/ImGuiOpenGLRenderer.h
     src/Platform/OpenGL/ImGuiOpenGLRenderer.cpp
 
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
+    src/Voxel/Events/Event.h
+    src/Voxel/Events/MouseEvent.h
+    src/Voxel/Events/KeyEvent.h
+    src/Voxel/Events/ApplicationEvent.h
 
     src/Voxel/Application.h
     src/Voxel/Core.h
@@ -26,16 +33,17 @@ set(VOXEL_SOURCES
     src/Voxel/Window.h
     src/Voxel/Layer.h
     src/Voxel/LayerStack.h
+    src/Voxel/Input.h
+    src/Voxel/KeyCodes.h
+    src/Voxel/MouseButtonCodes.h
 
     src/Voxel/Application.cpp
     src/Voxel/Log.cpp
     src/Voxel/Layer.cpp
     src/Voxel/LayerStack.cpp
 
-    src/Voxel/Events/Event.h
-    src/Voxel/Events/MouseEvent.h
-    src/Voxel/Events/KeyEvent.h
-    src/Voxel/Events/ApplicationEvent.h
+    #temp
+    vendor/imgui/backends/imgui_impl_glfw.cpp
 )
 
 add_library(Voxel SHARED ${VOXEL_SOURCES})

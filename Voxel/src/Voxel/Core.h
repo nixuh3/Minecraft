@@ -10,6 +10,10 @@
     #error Voxel only supports Windows!
 #endif
 
+#ifdef VOXEL_DEBUG
+    #define VOXEL_ENABLE_ASSERTS
+#endif
+
 #ifdef VOXEL_ENABLE_ASSERTS
     #define VOXEL_ASSERT(x, ...)                                   \
         {                                                          \

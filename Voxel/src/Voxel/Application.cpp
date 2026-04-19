@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Application.h"
+#include "Input.h"
 
 #include <GLFW/glfw3.h>
 
