@@ -13,8 +13,8 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 # Multi-config generators like Visual Studio
 set(CMAKE_CONFIGURATION_TYPES Debug Release Dist CACHE STRING "" FORCE)
 
-# /MDd in Debug, /MD in Release and Dist
-set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>DLL")
+# /MTd in Debug, /MT in Release and Dist
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 set_property(DIRECTORY ${CMAKE_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT Sandbox)
 

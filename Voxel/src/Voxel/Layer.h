@@ -13,6 +13,7 @@ class VOXEL_API Layer {
     virtual void OnAttach() {}
     virtual void OnDetach() {}
     virtual void OnUpdate() {}
+    virtual void OnImGuiRender() {}
     virtual void OnEvent(Event& event) {}
 
     const std::string& GetName() const { return m_DebugName; }

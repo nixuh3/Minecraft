@@ -16,12 +16,11 @@ set(VOXEL_SOURCES
     src/Platform/Windows/WindowsWindow.cpp
     src/Platform/Windows/WindowsInput.h
     src/Platform/Windows/WindowsInput.cpp
-    
-    src/Platform/OpenGL/ImGuiOpenGLRenderer.h
-    src/Platform/OpenGL/ImGuiOpenGLRenderer.cpp
 
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
+    src/Voxel/ImGui/ImGuiBuild.cpp
+
     src/Voxel/Events/Event.h
     src/Voxel/Events/MouseEvent.h
     src/Voxel/Events/KeyEvent.h
@@ -42,12 +41,9 @@ set(VOXEL_SOURCES
     src/Voxel/Log.cpp
     src/Voxel/Layer.cpp
     src/Voxel/LayerStack.cpp
-
-    #temp
-    vendor/imgui/backends/imgui_impl_glfw.cpp
 )
 
-add_library(Voxel SHARED ${VOXEL_SOURCES})
+add_library(Voxel STATIC ${VOXEL_SOURCES})
 
 # Match VS filters to directory structure on disk
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
@@ -55,12 +51,12 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
 target_include_directories(Voxel PUBLIC
     "src"
     "vendor/spdlog/include"
-    "vendor/glm"
 )
 
 target_compile_definitions(Voxel
     PRIVATE
         VOXEL_BUILD_DLL
+        _CRT_SECURE_NO_WARNINGS
     PUBLIC
         $<$<CONFIG:Debug>:VOXEL_DEBUG>
         $<$<CONFIG:Release>:VOXEL_RELEASE>
@@ -76,10 +72,10 @@ endif()
 target_link_libraries(Voxel
     PUBLIC
         glm::glm
+        ImGui
     PRIVATE
         glfw
         glad
-        ImGui
         OpenGL::GL
 )
 

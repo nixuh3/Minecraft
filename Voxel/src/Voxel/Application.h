@@ -3,7 +3,9 @@
 #include "Voxel/Core.h"
 #include "Voxel/Window.h"
 #include "Voxel/LayerStack.h"
-#include "Events/ApplicationEvent.h"
+#include "Voxel/Events/ApplicationEvent.h"
+#include "Voxel/ImGui/ImGuiLayer.h"
+
 #include <memory>
 
 namespace Voxel {
@@ -26,6 +28,7 @@ class VOXEL_API Application {
     bool OnWindowClose(WindowCloseEvent& e);
 
     std::unique_ptr<Window> m_Window;
+    ImGuiLayer* m_ImGuiLayer;
     bool m_Running = true;
     LayerStack m_LayerStack;
 
