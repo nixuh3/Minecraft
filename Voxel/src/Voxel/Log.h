@@ -8,7 +8,7 @@
 
 namespace Voxel {
 
-class VOXEL_API Log {
+class Log {
   public:
     static void Init();
 

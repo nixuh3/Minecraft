@@ -1,16 +1,6 @@
 #pragma once
 
-#ifdef VOXEL_PLATFORM_WINDOWS
-    #if VOXEL_DYNAMIC_LINK
-        #ifdef VOXEL_BUILD_DLL
-            #define VOXEL_API __declspec(dllexport)
-        #else
-            #define VOXEL_API __declspec(dllimport)
-        #endif
-    #else
-        #define VOXEL_API
-    #endif
-#else
+#ifndef VOXEL_PLATFORM_WINDOWS
     #error Voxel only supports Windows!
 #endif
 
@@ -20,19 +10,19 @@
 
 #ifdef VOXEL_ENABLE_ASSERTS
     #define VOXEL_ASSERT(x, ...)                                   \
-        {                                                          \
+        do {                                                       \
             if (!(x)) {                                            \
                 VOXEL_ERROR("Assertion failed: {0}", __VA_ARGS__); \
                 __debugbreak();                                    \
             }                                                      \
-        }
+        } while (0)
     #define VOXEL_CORE_ASSERT(x, ...)                                   \
-        {                                                               \
+        do {                                                            \
             if (!(x)) {                                                 \
                 VOXEL_CORE_ERROR("Assertion failed: {0}", __VA_ARGS__); \
                 __debugbreak();                                         \
             }                                                           \
-        }
+        } while (0)
 
 #else
     #define VOXEL_ASSERT(x, ...)

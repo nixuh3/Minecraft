@@ -4,7 +4,7 @@
 
 namespace Voxel {
 
-class VOXEL_API Input {
+class Input {
   public:
     static bool IsKeyPressed(int keycode) { return s_Instance->IsKeyPressedImpl(keycode); }
     static bool IsMouseButtonPressed(int button) {
