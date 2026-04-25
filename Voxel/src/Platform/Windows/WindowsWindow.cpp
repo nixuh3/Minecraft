@@ -5,8 +5,8 @@
 #include "Voxel/Events/ApplicationEvent.h"
 #include "Voxel/Events/MouseEvent.h"
 #include "Voxel/Events/KeyEvent.h"
+#include "Platform/OpenGL/OpenGLcontext.h"
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Voxel {
@@ -34,6 +34,7 @@ void WindowsWindow::Init(const WindowProps& props) {
 
     VOXEL_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
+
     if (!s_GLFWInitiazlied) {
         int success = glfwInit();
         VOXEL_CORE_ASSERT(success, "Could not initialize GLFW!");
@@ -43,9 +44,9 @@ void WindowsWindow::Init(const WindowProps& props) {
 
     m_Window = glfwCreateWindow(
         (int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(m_Window);
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    VOXEL_CORE_ASSERT(status, "Failed to initialize Glad!");
+    m_Context = new OpenGLContext(m_Window);
+    m_Context->Init();
+
     glfwSetWindowUserPointer(m_Window, &m_Data);
     SetVSync(true);
 
@@ -131,7 +132,7 @@ void WindowsWindow::Shutdown() { glfwDestroyWindow(m_Window); }
 
 void WindowsWindow::OnUpdate() {
     glfwPollEvents();
-    glfwSwapBuffers(m_Window);
+    m_Context->SwapBuffers();
 }
 
 void WindowsWindow::SetVSync(bool enabled) {

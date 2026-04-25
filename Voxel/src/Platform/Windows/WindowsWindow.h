@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Voxel/Window.h"
+#include "Voxel/Renderer/GraphicsContext.h"
 
 struct GLFWwindow;
 
@@ -30,6 +31,7 @@ class WindowsWindow : public Window {
     virtual void Shutdown();
 
     GLFWwindow* m_Window;
+    GraphicsContext* m_Context;
 
     struct WindowData {
         std::string Title;

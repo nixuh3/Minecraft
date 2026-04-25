@@ -18,6 +18,9 @@ set(VOXEL_SOURCES
     src/Platform/Windows/WindowsInput.h
     src/Platform/Windows/WindowsInput.cpp
 
+    src/Platform/OpenGL/OpenGLContext.h
+    src/Platform/OpenGL/OpenGLContext.cpp
+
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
     src/Voxel/ImGui/ImGuiBuild.cpp
@@ -26,6 +29,9 @@ set(VOXEL_SOURCES
     src/Voxel/Events/MouseEvent.h
     src/Voxel/Events/KeyEvent.h
     src/Voxel/Events/ApplicationEvent.h
+
+    src/Voxel/Renderer/GraphicsContext.h
+    src/Voxel/Renderer/GraphicsContext.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h
@@ -37,7 +43,6 @@ set(VOXEL_SOURCES
     src/Voxel/Input.h
     src/Voxel/KeyCodes.h
     src/Voxel/MouseButtonCodes.h
-
     src/Voxel/Application.cpp
     src/Voxel/Log.cpp
     src/Voxel/Layer.cpp
