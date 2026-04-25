@@ -2,6 +2,7 @@
 # Voxel shared library
 # -------------------------
 
+add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
 add_subdirectory(vendor/imgui)
@@ -50,13 +51,11 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
 
 target_include_directories(Voxel PUBLIC
     "src"
-    "vendor/spdlog/include"
 )
 
 target_compile_definitions(Voxel
     PRIVATE
         VOXEL_BUILD_DLL
-        _CRT_SECURE_NO_WARNINGS
     PUBLIC
         $<$<CONFIG:Debug>:VOXEL_DEBUG>
         $<$<CONFIG:Release>:VOXEL_RELEASE>
@@ -73,6 +72,7 @@ target_link_libraries(Voxel
     PUBLIC
         glm::glm
         ImGui
+        spdlog::spdlog
     PRIVATE
         glfw
         glad
