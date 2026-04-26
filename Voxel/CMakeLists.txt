@@ -12,6 +12,7 @@ find_package(OpenGL REQUIRED)
 
 set(VOXEL_SOURCES
     src/Voxel.h
+    src/pch.h
 
     src/Platform/Windows/WindowsWindow.h
     src/Platform/Windows/WindowsWindow.cpp
@@ -32,6 +33,8 @@ set(VOXEL_SOURCES
 
     src/Voxel/Renderer/GraphicsContext.h
     src/Voxel/Renderer/GraphicsContext.cpp
+    src/Voxel/Renderer/Shader.h
+    src/Voxel/Renderer/Shader.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h
