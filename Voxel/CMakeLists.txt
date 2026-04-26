@@ -5,7 +5,7 @@
 add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
-add_subdirectory(vendor/imgui)
+add_subdirectory(vendor) # imgui
 add_subdirectory(vendor/glm)
 
 find_package(OpenGL REQUIRED)
@@ -24,7 +24,6 @@ set(VOXEL_SOURCES
 
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
-    src/Voxel/ImGui/ImGuiBuild.cpp
 
     src/Voxel/Events/Event.h
     src/Voxel/Events/MouseEvent.h
@@ -57,13 +56,9 @@ add_library(Voxel STATIC ${VOXEL_SOURCES})
 # Match VS filters to directory structure on disk
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
 
-target_include_directories(Voxel PUBLIC
-    "src"
-)
+target_include_directories(Voxel PUBLIC "src")
 
 target_compile_definitions(Voxel
-    PRIVATE
-        VOXEL_BUILD_DLL
     PUBLIC
         $<$<CONFIG:Debug>:VOXEL_DEBUG>
         $<$<CONFIG:Release>:VOXEL_RELEASE>
