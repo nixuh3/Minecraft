@@ -9,6 +9,7 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
+#include <cstdint>
 
 #include "Voxel/Log.h"
 

@@ -5,6 +5,7 @@
 
 #include <functional>
 #include <sstream>
+#include <cstdint>
 
 namespace Voxel {
 
