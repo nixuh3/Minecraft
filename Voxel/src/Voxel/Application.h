@@ -6,6 +6,7 @@
 #include "Voxel/Events/ApplicationEvent.h"
 #include "Voxel/ImGui/ImGuiLayer.h"
 #include "Voxel/Renderer/Shader.h"
+#include "Voxel/Renderer/Buffer.h"
 
 #include <memory>
 
@@ -34,8 +35,9 @@ class Application {
     LayerStack m_LayerStack;
 
     unsigned int m_VertexArray;
-    unsigned int m_VertexBuffer;
-    unsigned int m_IndexBuffer;
+
+    std::unique_ptr<VertexBuffer> m_VertexBuffer;
+    std::unique_ptr<IndexBuffer> m_IndexBuffer;
     std::unique_ptr<Shader> m_Shader;
 
     inline static Application* s_Instance = nullptr;

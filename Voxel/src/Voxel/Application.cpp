@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Application.h"
-#include "Input.h"
+#include "Voxel/Input.h"
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -20,9 +20,6 @@ Application::Application() {
     glGenVertexArrays(1, &m_VertexArray);
     glBindVertexArray(m_VertexArray);
 
-    glGenBuffers(1, &m_VertexBuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VertexBuffer);
-
     // clang-format off
     float vertices[] = {
         -0.5, -0.5f, 0.0f,
@@ -30,19 +27,18 @@ Application::Application() {
         0.0f,  0.5f, 0.0f,
     };
 
-    unsigned int indices[] = {
+    uint32_t indices[] = {
         0, 1, 2,
     };
     // clang-format on
 
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    m_VertexBuffer =
+        std::unique_ptr<VertexBuffer>(VertexBuffer::Create(vertices, sizeof(vertices)));
+    m_IndexBuffer = std::unique_ptr<IndexBuffer>(
+        IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0])));
+
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), nullptr);
-
-    glGenBuffers(1, &m_IndexBuffer);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_IndexBuffer);
-
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     std::string_view vertSrc = R"(
 		#version 330 core
@@ -72,7 +68,7 @@ Application::Application() {
     m_Shader = std::make_unique<Shader>(vertSrc, fragSrc);
 }
 
-Application::~Application() {}
+Application::~Application() = default;
 
 void Application::Run() {
     while (m_Running) {
@@ -81,7 +77,7 @@ void Application::Run() {
 
         m_Shader->Bind();
         glBindVertexArray(m_VertexArray);
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
+        glDrawElements(GL_TRIANGLES, m_IndexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
 
         for (Layer* layer : m_LayerStack) {
             layer->OnUpdate();

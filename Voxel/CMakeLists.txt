@@ -21,6 +21,8 @@ set(VOXEL_SOURCES
 
     src/Platform/OpenGL/OpenGLContext.h
     src/Platform/OpenGL/OpenGLContext.cpp
+    src/Platform/OpenGL/OpenGLBuffer.h
+    src/Platform/OpenGL/OpenGLBuffer.cpp
 
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
@@ -30,10 +32,14 @@ set(VOXEL_SOURCES
     src/Voxel/Events/KeyEvent.h
     src/Voxel/Events/ApplicationEvent.h
 
+    src/Voxel/Renderer/Renderer.h
+    src/Voxel/Renderer/Renderer.cpp
     src/Voxel/Renderer/GraphicsContext.h
     src/Voxel/Renderer/GraphicsContext.cpp
     src/Voxel/Renderer/Shader.h
     src/Voxel/Renderer/Shader.cpp
+    src/Voxel/Renderer/Buffer.h
+    src/Voxel/Renderer/Buffer.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h
