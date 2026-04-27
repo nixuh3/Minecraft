@@ -35,7 +35,6 @@ set(VOXEL_SOURCES
     src/Voxel/Renderer/Renderer.h
     src/Voxel/Renderer/Renderer.cpp
     src/Voxel/Renderer/GraphicsContext.h
-    src/Voxel/Renderer/GraphicsContext.cpp
     src/Voxel/Renderer/Shader.h
     src/Voxel/Renderer/Shader.cpp
     src/Voxel/Renderer/Buffer.h

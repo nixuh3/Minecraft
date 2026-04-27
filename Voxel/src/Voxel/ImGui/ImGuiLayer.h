@@ -7,7 +7,7 @@ namespace Voxel {
 class ImGuiLayer : public Layer {
   public:
     ImGuiLayer();
-    ~ImGuiLayer();
+    ~ImGuiLayer() = default;
 
     void OnAttach() override;
     void OnDetach() override;

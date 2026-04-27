@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Buffer.h"
+#include "Voxel/Renderer/Buffer.h"
 #include "Voxel/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 
@@ -10,8 +10,7 @@ VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
         case RendererAPI::None:
             VOXEL_CORE_ASSERT(false, "RendererAPI::None is not supported!");
             return nullptr;
-        case RendererAPI::OpenGL: 
-            return new OpenGLVertexBuffer(vertices, size);
+        case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
     }
 
     VOXEL_CORE_ASSERT(false, "Unknown RendererAPI!");
