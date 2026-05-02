@@ -23,6 +23,8 @@ set(VOXEL_SOURCES
     src/Platform/OpenGL/OpenGLContext.cpp
     src/Platform/OpenGL/OpenGLBuffer.h
     src/Platform/OpenGL/OpenGLBuffer.cpp
+    src/Platform/OpenGL/OpenGLVertexArray.h
+    src/Platform/OpenGL/OpenGLVertexArray.cpp
 
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
@@ -39,6 +41,8 @@ set(VOXEL_SOURCES
     src/Voxel/Renderer/Shader.cpp
     src/Voxel/Renderer/Buffer.h
     src/Voxel/Renderer/Buffer.cpp
+    src/Voxel/Renderer/VertexArray.h
+    src/Voxel/Renderer/VertexArray.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h

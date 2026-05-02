@@ -7,6 +7,7 @@
 #include "Voxel/ImGui/ImGuiLayer.h"
 #include "Voxel/Renderer/Shader.h"
 #include "Voxel/Renderer/Buffer.h"
+#include "Voxel/Renderer/VertexArray.h"
 
 #include <memory>
 
@@ -34,11 +35,8 @@ class Application {
     bool m_Running = true;
     LayerStack m_LayerStack;
 
-    unsigned int m_VertexArray;
-
-    std::unique_ptr<VertexBuffer> m_VertexBuffer;
-    std::unique_ptr<IndexBuffer> m_IndexBuffer;
-    std::unique_ptr<Shader> m_Shader;
+    std::shared_ptr<Shader> m_Shader;
+    std::shared_ptr<VertexArray> m_VertexArray;
 
     inline static Application* s_Instance = nullptr;
 };
