@@ -12,7 +12,7 @@ OpenGLContext::OpenGLContext(GLFWwindow* windowHandle) : m_WindowHandle(windowHa
 
 void OpenGLContext::Init() {
     glfwMakeContextCurrent(m_WindowHandle);
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
+    int status = gladLoadGL(glfwGetProcAddress);
     VOXEL_CORE_ASSERT(status, "Failed to initialize Glad!");
 
     VOXEL_CORE_INFO("OpenGL Info:");

@@ -1,18 +1,17 @@
 #pragma once
 
-namespace Voxel {
+#include "RenderCommand.h"
 
-enum class RendererAPI {
-    None,
-    OpenGL,
-};
+namespace Voxel {
 
 class Renderer {
   public:
-    static RendererAPI GetAPI() { return s_RendererAPI; }
+    static void BeginScene();
+    static void EndScene();
 
-  private:
-    inline static RendererAPI s_RendererAPI = RendererAPI::OpenGL;
+    static void Submit(const std::shared_ptr<VertexArray>& vertexArray);
+
+    static RendererAPI::API GetAPI() { return RendererAPI::GetAPI(); }
 };
 
 }

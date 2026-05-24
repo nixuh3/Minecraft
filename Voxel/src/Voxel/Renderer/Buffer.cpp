@@ -7,10 +7,10 @@ namespace Voxel {
 
 VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
     switch (Renderer::GetAPI()) {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             VOXEL_CORE_ASSERT(false, "RendererAPI::None is not supported!");
             return nullptr;
-        case RendererAPI::OpenGL: return new OpenGLVertexBuffer(vertices, size);
+        case RendererAPI::API::OpenGL: return new OpenGLVertexBuffer(vertices, size);
     }
 
     VOXEL_CORE_ASSERT(false, "Unknown RendererAPI!");
@@ -19,10 +19,10 @@ VertexBuffer* VertexBuffer::Create(float* vertices, uint32_t size) {
 
 IndexBuffer* IndexBuffer::Create(uint32_t* indices, uint32_t size) {
     switch (Renderer::GetAPI()) {
-        case RendererAPI::None:
+        case RendererAPI::API::None:
             VOXEL_CORE_ASSERT(false, "RendererAPI::None is not supported!");
             return nullptr;
-        case RendererAPI::OpenGL: return new OpenGLIndexBuffer(indices, size);
+        case RendererAPI::API::OpenGL: return new OpenGLIndexBuffer(indices, size);
     }
 
     VOXEL_CORE_ASSERT(false, "Unknown RendererAPI!");
