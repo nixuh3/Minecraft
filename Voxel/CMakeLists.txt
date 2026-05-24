@@ -48,6 +48,8 @@ set(VOXEL_SOURCES
     src/Voxel/Renderer/Buffer.cpp
     src/Voxel/Renderer/VertexArray.h
     src/Voxel/Renderer/VertexArray.cpp
+    src/Voxel/Renderer/OrthographicCamera.h
+    src/Voxel/Renderer/OrthographicCamera.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h

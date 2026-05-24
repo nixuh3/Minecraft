@@ -2,6 +2,7 @@
 #include "Shader.h"
 
 #include <glad/gl.h>
+#include <glm/gtc/type_ptr.hpp>
 
 namespace Voxel {
 
@@ -109,5 +110,10 @@ Shader::~Shader() { glDeleteProgram(m_RendererID); }
 void Shader::Bind() const { glUseProgram(m_RendererID); }
 
 void Shader::Unbind() const { glUseProgram(0); }
+
+void Shader::UploadUniformMat4(std::string_view name, const glm::mat4& matrix) {
+    int location = glGetUniformLocation(m_RendererID, name.data());
+    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+}
 
 }

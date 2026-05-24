@@ -8,6 +8,7 @@
 #include "Voxel/Renderer/Shader.h"
 #include "Voxel/Renderer/Buffer.h"
 #include "Voxel/Renderer/VertexArray.h"
+#include "Voxel/Renderer/OrthographicCamera.h"
 
 #include <memory>
 
@@ -37,6 +38,8 @@ class Application {
 
     std::shared_ptr<Shader> m_Shader;
     std::shared_ptr<VertexArray> m_VertexArray;
+
+    OrthographicCamera m_Camera;
 
     inline static Application* s_Instance = nullptr;
 };
