@@ -6,7 +6,7 @@
 
 namespace Voxel {
 
-class OpenGLVertexArray: public VertexArray {
+class OpenGLVertexArray : public VertexArray {
   public:
     OpenGLVertexArray();
     ~OpenGLVertexArray();

@@ -34,7 +34,6 @@ void WindowsWindow::Init(const WindowProps& props) {
 
     VOXEL_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
-
     if (!s_GLFWInitiazlied) {
         int success = glfwInit();
         VOXEL_CORE_ASSERT(success, "Could not initialize GLFW!");

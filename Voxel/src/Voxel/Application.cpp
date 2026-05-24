@@ -2,7 +2,7 @@
 #include "Application.h"
 #include "Voxel/Input.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 namespace Voxel {
@@ -45,34 +45,34 @@ Application::Application() {
     m_VertexArray->SetIndexBuffer(indexBuffer);
 
     std::string_view vertSrc = R"(
-		#version 330 core
-			
-		layout(location = 0) in vec3 a_Position;
-		layout(location = 1) in vec4 a_Color;
+        #version 330 core
+            
+        layout(location = 0) in vec3 a_Position;
+        layout(location = 1) in vec4 a_Color;
 
-		out vec3 v_Position;
-		out vec4 v_Color;
+        out vec3 v_Position;
+        out vec4 v_Color;
 
-		void main() {
-			v_Position = a_Position;
+        void main() {
+            v_Position = a_Position;
             v_Color = a_Color;
-			gl_Position = vec4(a_Position, 1.0);	
-		}
-	)";
+            gl_Position = vec4(a_Position, 1.0);	
+        }
+    )";
 
     std::string_view fragSrc = R"(
-		#version 330 core
-			
-		layout(location = 0) out vec4 color;
+        #version 330 core
+            
+        layout(location = 0) out vec4 color;
 
-		in vec3 v_Position;
-		in vec4 v_Color;
+        in vec3 v_Position;
+        in vec4 v_Color;
 
-		void main() {
-			//color = vec4(v_Position * 0.5 + 0.5, 1.0);
+        void main() {
+            //color = vec4(v_Position * 0.5 + 0.5, 1.0);
             color = v_Color;
-		}
-	)";
+        }
+    )";
 
     m_Shader = std::make_shared<Shader>(vertSrc, fragSrc);
 }

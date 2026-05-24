@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "OpenGLVertexArray.h"
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 
 namespace Voxel {
 
@@ -46,7 +46,8 @@ void OpenGLVertexArray::AddVertexBuffer(const std::shared_ptr<VertexBuffer>& ver
         glEnableVertexAttribArray(index);
         glVertexAttribPointer(index, element.GetComponentCount(),
             ShaderDataTypeToOpenGLBaseType(element.Type), element.Normalized ? GL_TRUE : GL_FALSE,
-            layout.GetStride(), reinterpret_cast<const void*>(static_cast<uintptr_t>(element.Offset)));
+            layout.GetStride(),
+            reinterpret_cast<const void*>(static_cast<uintptr_t>(element.Offset)));
         index++;
     }
     m_VertexBuffers.push_back(vertexBuffer);
