@@ -4,18 +4,112 @@
 
 class ExampleLayer : public Voxel::Layer {
   public:
-    ExampleLayer() : Layer("Example") {}
+    ExampleLayer() : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f) {
+        // clang-format off
+        float vertices[] = {
+            -0.5f, -0.5f, 0.0f,   0.8f, 0.2f, 0.4f, 1.0f,
+             0.5f, -0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
+             0.5f,  0.5f, 0.0f,   0.8f, 0.8f, 0.2f, 1.0f,
+            -0.5f,  0.5f, 0.0f,   0.3f, 0.8f, 0.2f, 1.0f,
+        };
 
-    void OnUpdate() override {}
+        uint32_t indices[] = {
+            0, 1, 2,
+            0, 2, 3
+        };
+        // clang-format on
 
-    void OnImGuiRender() override {
-        ImGui::Begin("Test");
-        ImGui::Text("Hello World!");
-        ImGui::End();
+        m_VertexArray = std::shared_ptr<Voxel::VertexArray>(Voxel::VertexArray::Create());
+        std::shared_ptr<Voxel::VertexBuffer> vertexBuffer = std::shared_ptr<Voxel::VertexBuffer>(
+            Voxel::VertexBuffer::Create(vertices, sizeof(vertices)));
+        std::shared_ptr<Voxel::IndexBuffer> indexBuffer = std::shared_ptr<Voxel::IndexBuffer>(
+            Voxel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(indices[0])));
+
+        Voxel::BufferLayout layout = {
+            { Voxel::ShaderDataType::Float3, "a_Position" },
+            { Voxel::ShaderDataType::Float4,    "a_Color" },
+        };
+
+        vertexBuffer->SetLayout(layout);
+        m_VertexArray->AddVertexBuffer(vertexBuffer);
+        m_VertexArray->SetIndexBuffer(indexBuffer);
+
+        std::string_view vertSrc = R"(
+            #version 330 core
+                
+            layout(location = 0) in vec3 a_Position;
+            layout(location = 1) in vec4 a_Color;
+
+            uniform mat4 u_ViewProjection;
+
+            out vec3 v_Position;
+            out vec4 v_Color;
+
+            void main() {
+                v_Position = a_Position;
+                v_Color = a_Color;
+                gl_Position = u_ViewProjection * vec4(a_Position, 1.0);	
+            }
+        )";
+
+        std::string_view fragSrc = R"(
+            #version 330 core
+                
+            layout(location = 0) out vec4 color;
+
+            in vec3 v_Position;
+            in vec4 v_Color;
+
+            void main() {
+                //color = vec4(v_Position * 0.5 + 0.5, 1.0);
+                color = v_Color;
+            }
+        )";
+
+        m_Shader = std::make_shared<Voxel::Shader>(vertSrc, fragSrc);
     }
 
-    void OnEvent(Voxel::Event& e) override { // VOXEL_TRACE(e);
+    void OnUpdate() override {
+        if (Voxel::Input::IsKeyPressed(VOXEL_KEY_LEFT)) {
+            m_CameraPosition.x -= m_CameraMoveSpeed;
+        } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_RIGHT)) {
+            m_CameraPosition.x += m_CameraMoveSpeed;
+        }
+        if (Voxel::Input::IsKeyPressed(VOXEL_KEY_DOWN)) {
+            m_CameraPosition.y -= m_CameraMoveSpeed;
+        } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_UP)) {
+            m_CameraPosition.y += m_CameraMoveSpeed;
+        }
+        if (Voxel::Input::IsKeyPressed(VOXEL_KEY_A)) {
+            m_CameraRotation += m_CameraRotationSpeed;
+        } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_D)) {
+            m_CameraRotation -= m_CameraRotationSpeed;
+        }
+
+        Voxel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+        Voxel::RenderCommand::Clear();
+
+        m_Camera.SetPosition(m_CameraPosition);
+        m_Camera.SetRotation(m_CameraRotation);
+
+        Voxel::Renderer::BeginScene(m_Camera);
+        Voxel::Renderer::Submit(m_Shader, m_VertexArray);
+        Voxel::Renderer::EndScene();
     }
+
+    void OnImGuiRender() override {}
+
+    void OnEvent(Voxel::Event& e) override {}
+
+  private:
+    std::shared_ptr<Voxel::Shader> m_Shader;
+    std::shared_ptr<Voxel::VertexArray> m_VertexArray;
+
+    Voxel::OrthographicCamera m_Camera;
+    glm::vec3 m_CameraPosition;
+    float m_CameraRotation = 0.0f;
+    float m_CameraMoveSpeed = 0.1f;
+    float m_CameraRotationSpeed = 0.5f;
 };
 
 class Sandbox : public Voxel::Application {

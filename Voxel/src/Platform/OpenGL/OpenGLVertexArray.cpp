@@ -19,10 +19,8 @@ GLenum ShaderDataTypeToOpenGLBaseType(ShaderDataType type) {
         case ShaderDataType::Int3:
         case ShaderDataType::Int4: return GL_INT;
         case ShaderDataType::Bool: return GL_BOOL;
+        default: VOXEL_CORE_ASSERT(false, "Unknown ShaderDataType!"); return 0;
     }
-
-    VOXEL_CORE_ASSERT(false, "Unknown ShaderDataType!");
-    return 0;
 }
 }
 

@@ -35,3 +35,7 @@ cmake --build build
 ```bash
 ./build/Sandbox/Debug/Sandbox
 ```
+
+## Screenshots
+
+![Screenshot](images/screenshot.png)
