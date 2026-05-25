@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Voxel/Core/TimeStep.h"
+
 #include "Voxel/Application.h"
 #include "Voxel/Log.h"
 #include "Voxel/Layer.h"

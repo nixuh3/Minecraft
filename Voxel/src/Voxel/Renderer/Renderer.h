@@ -1,6 +1,6 @@
 #pragma once
 
-#include "RenderCommand.h"
+#include "Voxel/Renderer/RenderCommand.h"
 #include "Voxel/Renderer/Shader.h"
 
 namespace Voxel {

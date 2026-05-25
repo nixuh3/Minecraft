@@ -1,10 +1,7 @@
 #pragma once
 
-#include "Voxel/Core.h"
-#include "Voxel/Events/Event.h"
-
 #include <functional>
-#include <sstream>
+#include <string>
 #include <cstdint>
 
 namespace Voxel {
@@ -18,6 +15,8 @@ struct WindowProps {
         const std::string& title = "Voxel Engine", uint32_t width = 1280, uint32_t height = 720)
         : Title(title), Width(width), Height(height) {}
 };
+
+class Event;
 
 // Interface representing a desktop system based Window
 class Window {

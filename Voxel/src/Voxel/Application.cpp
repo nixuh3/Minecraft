@@ -1,7 +1,10 @@
 #include "pch.h"
 #include "Application.h"
-#include "Voxel/Input.h"
-#include "Voxel/Renderer/Renderer.h"
+#include "Voxel/Core.h"
+#include "Voxel/Core/TimeStep.h"
+#include "Voxel/Events/ApplicationEvent.h"
+
+#include <GLFW/glfw3.h>
 
 namespace Voxel {
 
@@ -18,9 +21,12 @@ Application::Application() {
 
 void Application::Run() {
     while (m_Running) {
+        float time = (float)glfwGetTime();
+        Timestep timestep = time - m_LastFrameTime;
+        m_LastFrameTime = time;
 
         for (Layer* layer : m_LayerStack) {
-            layer->OnUpdate();
+            layer->OnUpdate(timestep);
         }
 
         m_ImGuiLayer->Begin();

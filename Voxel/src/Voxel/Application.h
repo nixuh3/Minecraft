@@ -1,18 +1,14 @@
 #pragma once
 
-#include "Voxel/Core.h"
 #include "Voxel/Window.h"
 #include "Voxel/LayerStack.h"
-#include "Voxel/Events/ApplicationEvent.h"
 #include "Voxel/ImGui/ImGuiLayer.h"
-#include "Voxel/Renderer/Shader.h"
-#include "Voxel/Renderer/Buffer.h"
-#include "Voxel/Renderer/VertexArray.h"
-#include "Voxel/Renderer/OrthographicCamera.h"
 
 #include <memory>
 
 namespace Voxel {
+
+class WindowCloseEvent;
 
 class Application {
   public:
@@ -35,6 +31,8 @@ class Application {
     ImGuiLayer* m_ImGuiLayer;
     bool m_Running = true;
     LayerStack m_LayerStack;
+
+    float m_LastFrameTime = 0.0f;
 
     inline static Application* s_Instance = nullptr;
 };

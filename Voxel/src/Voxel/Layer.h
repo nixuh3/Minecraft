@@ -1,9 +1,11 @@
 #pragma once
 
+#include "Voxel/Core/Timestep.h"
 #include <string>
-#include "Voxel/Events/Event.h"
 
 namespace Voxel {
+
+class Event;
 
 class Layer {
   public:
@@ -12,7 +14,7 @@ class Layer {
 
     virtual void OnAttach() {}
     virtual void OnDetach() {}
-    virtual void OnUpdate() {}
+    virtual void OnUpdate(Timestep ts) {}
     virtual void OnImGuiRender() {}
     virtual void OnEvent(Event& event) {}
 

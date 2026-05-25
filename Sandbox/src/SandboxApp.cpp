@@ -69,21 +69,23 @@ class ExampleLayer : public Voxel::Layer {
         m_Shader = std::make_shared<Voxel::Shader>(vertSrc, fragSrc);
     }
 
-    void OnUpdate() override {
+    void OnUpdate(Voxel::Timestep ts) override {
+        VOXEL_TRACE("{0}", ts.GetSeconds());
+
         if (Voxel::Input::IsKeyPressed(VOXEL_KEY_LEFT)) {
-            m_CameraPosition.x -= m_CameraMoveSpeed;
+            m_CameraPosition.x -= m_CameraMoveSpeed * ts.GetSeconds();
         } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_RIGHT)) {
-            m_CameraPosition.x += m_CameraMoveSpeed;
+            m_CameraPosition.x += m_CameraMoveSpeed * ts.GetSeconds();
         }
         if (Voxel::Input::IsKeyPressed(VOXEL_KEY_DOWN)) {
-            m_CameraPosition.y -= m_CameraMoveSpeed;
+            m_CameraPosition.y -= m_CameraMoveSpeed * ts.GetSeconds();
         } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_UP)) {
-            m_CameraPosition.y += m_CameraMoveSpeed;
+            m_CameraPosition.y += m_CameraMoveSpeed * ts.GetSeconds();
         }
         if (Voxel::Input::IsKeyPressed(VOXEL_KEY_A)) {
-            m_CameraRotation += m_CameraRotationSpeed;
+            m_CameraRotation += m_CameraRotationSpeed * ts.GetSeconds();
         } else if (Voxel::Input::IsKeyPressed(VOXEL_KEY_D)) {
-            m_CameraRotation -= m_CameraRotationSpeed;
+            m_CameraRotation -= m_CameraRotationSpeed * ts.GetSeconds();
         }
 
         Voxel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
@@ -106,10 +108,12 @@ class ExampleLayer : public Voxel::Layer {
     std::shared_ptr<Voxel::VertexArray> m_VertexArray;
 
     Voxel::OrthographicCamera m_Camera;
+
     glm::vec3 m_CameraPosition;
+    float m_CameraMoveSpeed = 5.0f;
+
     float m_CameraRotation = 0.0f;
-    float m_CameraMoveSpeed = 0.1f;
-    float m_CameraRotationSpeed = 0.5f;
+    float m_CameraRotationSpeed = 180.0f;
 };
 
 class Sandbox : public Voxel::Application {

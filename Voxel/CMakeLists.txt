@@ -28,6 +28,8 @@ set(VOXEL_SOURCES
     src/Platform/OpenGL/OpenGLRendererAPI.h
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
 
+    src/Voxel/Core/Timestep.h
+
     src/Voxel/ImGui/ImGuiLayer.h
     src/Voxel/ImGui/ImGuiLayer.cpp
 

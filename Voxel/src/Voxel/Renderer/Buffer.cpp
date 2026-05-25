@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "Voxel/Renderer/Buffer.h"
 #include "Voxel/Renderer/Renderer.h"
 #include "Platform/OpenGL/OpenGLBuffer.h"
 

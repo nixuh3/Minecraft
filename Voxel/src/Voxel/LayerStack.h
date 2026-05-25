@@ -1,7 +1,7 @@
 #pragma once
 
-#include <vector>
 #include "Voxel/Layer.h"
+#include <vector>
 
 namespace Voxel {
 
