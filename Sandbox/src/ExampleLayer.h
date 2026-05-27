@@ -1,0 +1,28 @@
+#pragma once
+
+#include <Voxel.h>
+#include <imgui.h>
+
+class ExampleLayer : public Voxel::Layer {
+  public:
+    ExampleLayer();
+
+    void OnUpdate(Voxel::Timestep ts) override;
+    void OnImGuiRender() override;
+    void OnEvent(Voxel::Event& e) override;
+
+  private:
+    std::shared_ptr<Voxel::Shader> m_Shader;
+    std::shared_ptr<Voxel::VertexArray> m_VertexArray;
+
+    std::shared_ptr<Voxel::Shader> m_SquareShader;
+    std::shared_ptr<Voxel::VertexArray> m_SquareVA;
+
+    Voxel::OrthographicCamera m_Camera;
+
+    glm::vec3 m_CameraPosition;
+    float m_CameraMoveSpeed = 5.0f;
+
+    float m_CameraRotation = 0.0f;
+    float m_CameraRotationSpeed = 180.0f;
+};

@@ -43,17 +43,25 @@ void Application::OnEvent(Event& e) {
     EventDispatcher dispatcher(e);
     dispatcher.Dispatch<WindowCloseEvent>([this](WindowCloseEvent& e) { return OnWindowClose(e); });
 
-    for (auto it = m_LayerStack.end(); it != m_LayerStack.begin();) {
-        (*--it)->OnEvent(e);
+    for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it) {
         if (e.Handled) {
             break;
         }
+        (*it)->OnEvent(e);
     }
 }
 
-void Application::PushLayer(Layer* layer) { m_LayerStack.PushLayer(layer); }
+void Application::PushLayer(Layer* layer) {
+    m_LayerStack.PushLayer(layer);
+    layer->OnAttach();
+}
 
-void Application::PushOverlay(Layer* layer) { m_LayerStack.PushOverlay(layer); }
+void Application::PushOverlay(Layer* layer) {
+    m_LayerStack.PushOverlay(layer);
+    layer->OnAttach();
+}
+
+void Application::Close() { m_Running = false; }
 
 bool Application::OnWindowClose(WindowCloseEvent& e) {
     m_Running = false;

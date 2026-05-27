@@ -1,8 +1,8 @@
 #pragma once
 
-#ifdef VOXEL_PLATFORM_WINDOWS
+#include "Voxel/Application.h"
 
-    #include "Voxel/Application.h"
+#ifdef VOXEL_PLATFORM_WINDOWS
 
 extern Voxel::Application* Voxel::CreateApplication();
 

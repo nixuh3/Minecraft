@@ -24,6 +24,8 @@ class Application {
     static Application& Get() { return *s_Instance; }
     Window& GetWindow() const { return *m_Window; }
 
+    void Close();
+
   private:
     bool OnWindowClose(WindowCloseEvent& e);
 

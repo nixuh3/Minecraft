@@ -20,5 +20,3 @@
 #include "Voxel/Renderer/Shader.h"
 #include "Voxel/Renderer/VertexArray.h"
 #include "Voxel/Renderer/OrthographicCamera.h"
-
-#include "Voxel/EntryPoint.h"

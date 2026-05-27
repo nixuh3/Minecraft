@@ -1,7 +1,3 @@
-# -------------------------
-# Voxel shared library
-# -------------------------
-
 add_subdirectory(vendor/spdlog)
 add_subdirectory(vendor/glfw)
 add_subdirectory(vendor/glad)
@@ -84,7 +80,6 @@ target_compile_definitions(Voxel
         VOXEL_PLATFORM_WINDOWS
 )
 
-# Static runtime on MSVC
 if(MSVC)
     target_compile_options(Voxel PRIVATE /utf-8)
 endif()
