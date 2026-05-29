@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Application.h"
 #include "Voxel/Core.h"
-#include "Voxel/Core/TimeStep.h"
+#include "Voxel/Core/Timestep.h"
 #include "Voxel/Events/ApplicationEvent.h"
 
 #include <GLFW/glfw3.h>

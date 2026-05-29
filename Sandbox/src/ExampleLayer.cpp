@@ -1,5 +1,8 @@
 #include "ExampleLayer.h"
+#include "Platform/OpenGL/OpenGLShader.h"
+
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 ExampleLayer::ExampleLayer()
     : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f) {
@@ -85,7 +88,7 @@ ExampleLayer::ExampleLayer()
         }
     )";
 
-    m_Shader = std::make_shared<Voxel::Shader>(vertSrc, fragSrc);
+    m_Shader = std::shared_ptr<Voxel::Shader>(Voxel::Shader::Create(vertSrc, fragSrc));
 
     std::string_view squareVert = R"(
         #version 330 core
@@ -95,10 +98,7 @@ ExampleLayer::ExampleLayer()
         uniform mat4 u_ViewProjection;
         uniform mat4 u_Transform;
 
-        out vec3 v_Position;
-
         void main() {
-            v_Position = a_Position;
             gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
         }
     )";
@@ -108,14 +108,14 @@ ExampleLayer::ExampleLayer()
 
         layout(location = 0) out vec4 color;
 
-        in vec3 v_Position;
+        uniform vec3 u_Color;
 
         void main() {
-            color = vec4(0.2, 0.2, 0.2, 1.0);
+            color = vec4(u_Color, 1.0);
         }
     )";
 
-    m_SquareShader = std::make_shared<Voxel::Shader>(squareVert, squareFrag);
+    m_SquareShader = std::shared_ptr<Voxel::Shader>(Voxel::Shader::Create(squareVert, squareFrag));
 }
 
 void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
@@ -142,7 +142,12 @@ void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
     m_Camera.SetRotation(m_CameraRotation);
 
     Voxel::Renderer::BeginScene(m_Camera);
+
     glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
+
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_SquareShader)->Bind();
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_SquareShader)
+        ->UploadUniformFloat3("u_Color", m_SquareColor);
 
     for (int y = 0; y < 20; y++) {
         for (int x = 0; x < 20; x++) {
@@ -156,6 +161,10 @@ void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
     Voxel::Renderer::EndScene();
 }
 
-void ExampleLayer::OnImGuiRender() {}
+void ExampleLayer::OnImGuiRender() {
+    ImGui::Begin("Settings");
+    ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+    ImGui::End();
+}
 
 void ExampleLayer::OnEvent(Voxel::Event& e) {}

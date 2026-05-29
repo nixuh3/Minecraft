@@ -5,7 +5,7 @@
 #include "Voxel/Events/ApplicationEvent.h"
 #include "Voxel/Events/MouseEvent.h"
 #include "Voxel/Events/KeyEvent.h"
-#include "Platform/OpenGL/OpenGLcontext.h"
+#include "Platform/OpenGL/OpenGLContext.h"
 
 #include <GLFW/glfw3.h>
 

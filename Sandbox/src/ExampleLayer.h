@@ -25,4 +25,6 @@ class ExampleLayer : public Voxel::Layer {
 
     float m_CameraRotation = 0.0f;
     float m_CameraRotationSpeed = 180.0f;
+
+    glm::vec3 m_SquareColor = { 0.2f, 0.3f, 0.8f };
 };

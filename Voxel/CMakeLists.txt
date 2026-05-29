@@ -23,6 +23,8 @@ set(VOXEL_SOURCES
     src/Platform/OpenGL/OpenGLVertexArray.cpp
     src/Platform/OpenGL/OpenGLRendererAPI.h
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
+    src/Platform/OpenGL/OpenGLShader.h
+    src/Platform/OpenGL/OpenGLShader.cpp
 
     src/Voxel/Core/Timestep.h
 
