@@ -21,7 +21,7 @@ void GLFWErrorCallBack(int error, const char* description) {
 
 }
 
-Window* Window::Create(const WindowProps& props) { return new WindowsWindow(props); }
+Scope<Window> Window::Create(const WindowProps& props) { return CreateScope<WindowsWindow>(props); }
 
 WindowsWindow::WindowsWindow(const WindowProps& props) { Init(props); }
 

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Voxel/Core.h"
 #include <functional>
 #include <string>
 #include <cstdint>
@@ -37,7 +38,7 @@ class Window {
 
     virtual void* GetNativeWindow() const = 0;
 
-    static Window* Create(const WindowProps& props = WindowProps());
+    static Scope<Window> Create(const WindowProps& props = WindowProps());
 };
 
 }

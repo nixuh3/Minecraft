@@ -11,7 +11,7 @@ class Shader {
     virtual void Bind() const = 0;
     virtual void Unbind() const = 0;
 
-    static Shader* Create(std::string_view vertSrc, std::string_view fragSrc);
+    static Ref<Shader> Create(std::string_view vertSrc, std::string_view fragSrc);
 };
 
 }

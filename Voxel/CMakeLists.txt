@@ -37,8 +37,8 @@ set(VOXEL_SOURCES
     src/Voxel/Events/ApplicationEvent.h
 
     src/Voxel/Renderer/RendererAPI.h
+    src/Voxel/Renderer/RendererAPI.cpp
     src/Voxel/Renderer/RenderCommand.h
-    src/Voxel/Renderer/RenderCommand.cpp
     src/Voxel/Renderer/Renderer.h
     src/Voxel/Renderer/Renderer.cpp
     src/Voxel/Renderer/GraphicsContext.h

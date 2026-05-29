@@ -12,11 +12,11 @@ class ExampleLayer : public Voxel::Layer {
     void OnEvent(Voxel::Event& e) override;
 
   private:
-    std::shared_ptr<Voxel::Shader> m_Shader;
-    std::shared_ptr<Voxel::VertexArray> m_VertexArray;
+    Voxel::Ref<Voxel::Shader> m_Shader;
+    Voxel::Ref<Voxel::VertexArray> m_VertexArray;
 
-    std::shared_ptr<Voxel::Shader> m_SquareShader;
-    std::shared_ptr<Voxel::VertexArray> m_SquareVA;
+    Voxel::Ref<Voxel::Shader> m_SquareShader;
+    Voxel::Ref<Voxel::VertexArray> m_SquareVA;
 
     Voxel::OrthographicCamera m_Camera;
 

@@ -7,11 +7,7 @@
 ExampleLayer::ExampleLayer()
     : Layer("Example"), m_Camera(-1.6f, 1.6f, -0.9f, 0.9f), m_CameraPosition(0.0f) {
     // clang-format off
-    float vertices[] = {
-        // -1.0f, -1.0f, 0.0f,   0.8f, 0.2f, 0.4f, 1.0f,
-        // -0.5f, -1.0f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
-        // -1.0f, -0.5f, 0.0f,   0.8f, 0.8f, 0.2f, 1.0f,
-        
+    float vertices[] = {        
         -0.5f, -0.5f, 0.0f,   0.8f, 0.2f, 0.4f, 1.0f,
          0.5f, -0.5f, 0.0f,   0.2f, 0.3f, 0.8f, 1.0f,
          0.5f,  0.5f, 0.0f,   0.8f, 0.8f, 0.2f, 1.0f,
@@ -21,9 +17,9 @@ ExampleLayer::ExampleLayer()
     uint32_t indices[] = { 0, 1, 2, 0, 2, 3 };
     // clang-format on
 
-    m_VertexArray = std::shared_ptr<Voxel::VertexArray>(Voxel::VertexArray::Create());
-    std::shared_ptr<Voxel::VertexBuffer> vertexBuffer = std::shared_ptr<Voxel::VertexBuffer>(
-        Voxel::VertexBuffer::Create(vertices, sizeof(vertices)));
+    m_VertexArray = Voxel::VertexArray::Create();
+
+    auto vertexBuffer = Voxel::VertexBuffer::Create(vertices, sizeof(vertices));
     Voxel::BufferLayout layout = {
         { Voxel::ShaderDataType::Float3, "a_Position" },
         { Voxel::ShaderDataType::Float4,    "a_Color" },
@@ -31,11 +27,9 @@ ExampleLayer::ExampleLayer()
     vertexBuffer->SetLayout(layout);
     m_VertexArray->AddVertexBuffer(vertexBuffer);
 
-    std::shared_ptr<Voxel::IndexBuffer> indexBuffer = std::shared_ptr<Voxel::IndexBuffer>(
-        Voxel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t)));
+    auto indexBuffer = Voxel::IndexBuffer::Create(indices, sizeof(indices) / sizeof(uint32_t));
     m_VertexArray->SetIndexBuffer(indexBuffer);
 
-    // square
     // clang-format off
     float squareVertices[] = {
         -0.5f, -0.5f, 0.0f,
@@ -47,16 +41,16 @@ ExampleLayer::ExampleLayer()
     uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
     // clang-format on
 
-    m_SquareVA = std::shared_ptr<Voxel::VertexArray>(Voxel::VertexArray::Create());
-    std::shared_ptr<Voxel::VertexBuffer> squareVB = std::shared_ptr<Voxel::VertexBuffer>(
-        Voxel::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+    m_SquareVA = Voxel::VertexArray::Create();
+
+    auto squareVB = Voxel::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
     squareVB->SetLayout({
         { Voxel::ShaderDataType::Float3, "a_Position" }
     });
     m_SquareVA->AddVertexBuffer(squareVB);
 
-    std::shared_ptr<Voxel::IndexBuffer> squareIB = std::shared_ptr<Voxel::IndexBuffer>(
-        Voxel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+    auto squareIB =
+        Voxel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
     m_SquareVA->SetIndexBuffer(squareIB);
 
     std::string_view vertSrc = R"(
@@ -88,7 +82,7 @@ ExampleLayer::ExampleLayer()
         }
     )";
 
-    m_Shader = std::shared_ptr<Voxel::Shader>(Voxel::Shader::Create(vertSrc, fragSrc));
+    m_Shader = Voxel::Shader::Create(vertSrc, fragSrc);
 
     std::string_view squareVert = R"(
         #version 330 core
@@ -115,7 +109,7 @@ ExampleLayer::ExampleLayer()
         }
     )";
 
-    m_SquareShader = std::shared_ptr<Voxel::Shader>(Voxel::Shader::Create(squareVert, squareFrag));
+    m_SquareShader = Voxel::Shader::Create(squareVert, squareFrag);
 }
 
 void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
