@@ -5,6 +5,8 @@
 
 namespace Voxel {
 
+void Renderer::Init() { RenderCommand::Init(); }
+
 void Renderer::BeginScene(OrthographicCamera& camera) {
     s_SceneData->ViewProjectionMatrix = camera.GetViewProjectionMatrix();
 }

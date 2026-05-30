@@ -3,10 +3,12 @@
 #include <sstream>
 #include <functional>
 #include <memory>
+#include <array>
 #include <vector>
 #include <string>
 #include <string_view>
 #include <iostream>
+#include <fstream>
 #include <algorithm>
 #include <utility>
 #include <cstdint>

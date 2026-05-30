@@ -12,6 +12,7 @@ class ExampleLayer : public Voxel::Layer {
     void OnEvent(Voxel::Event& e) override;
 
   private:
+    Voxel::ShaderLibrary m_ShaderLibrary;
     Voxel::Ref<Voxel::Shader> m_Shader;
     Voxel::Ref<Voxel::VertexArray> m_VertexArray;
 
@@ -19,7 +20,6 @@ class ExampleLayer : public Voxel::Layer {
     Voxel::Ref<Voxel::VertexArray> m_SquareVA;
 
     Voxel::Ref<Voxel::Texture2D> m_Texture;
-    Voxel::Ref<Voxel::Shader> m_TextureShader;
 
     Voxel::OrthographicCamera m_Camera;
 

@@ -3,6 +3,7 @@
 #include "Voxel/Core.h"
 #include "Voxel/Core/Timestep.h"
 #include "Voxel/Events/ApplicationEvent.h"
+#include "Voxel/Renderer/Renderer.h"
 
 #include <GLFW/glfw3.h>
 
@@ -14,6 +15,8 @@ Application::Application() {
 
     m_Window = Window::Create();
     m_Window->SetEventCallback([this](Event& e) { OnEvent(e); });
+
+    Renderer::Init();
 
     m_ImGuiLayer = new ImGuiLayer();
     PushOverlay(m_ImGuiLayer);
