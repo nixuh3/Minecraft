@@ -25,6 +25,8 @@ set(VOXEL_SOURCES
     src/Platform/OpenGL/OpenGLRendererAPI.cpp
     src/Platform/OpenGL/OpenGLShader.h
     src/Platform/OpenGL/OpenGLShader.cpp
+    src/Platform/OpenGL/OpenGLTexture.h
+    src/Platform/OpenGL/OpenGLTexture.cpp
 
     src/Voxel/Core/Timestep.h
 
@@ -50,6 +52,8 @@ set(VOXEL_SOURCES
     src/Voxel/Renderer/VertexArray.cpp
     src/Voxel/Renderer/OrthographicCamera.h
     src/Voxel/Renderer/OrthographicCamera.cpp
+    src/Voxel/Renderer/Texture.h
+    src/Voxel/Renderer/Texture.cpp
 
     src/Voxel/Application.h
     src/Voxel/Core.h
@@ -69,10 +73,17 @@ set(VOXEL_SOURCES
 
 add_library(Voxel STATIC ${VOXEL_SOURCES})
 
+target_sources(Voxel PRIVATE
+    vendor/stb_image/stb_image.cpp
+)
+
 # Match VS filters to directory structure on disk
 source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}" FILES ${VOXEL_SOURCES})
 
-target_include_directories(Voxel PUBLIC "src")
+target_include_directories(Voxel PUBLIC 
+    src
+    vendor/stb_image
+)
 
 target_compile_definitions(Voxel
     PUBLIC

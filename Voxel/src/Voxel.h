@@ -18,5 +18,6 @@
 #include "Voxel/Renderer/RenderCommand.h"
 #include "Voxel/Renderer/Buffer.h"
 #include "Voxel/Renderer/Shader.h"
+#include "Voxel/Renderer/Texture.h"
 #include "Voxel/Renderer/VertexArray.h"
 #include "Voxel/Renderer/OrthographicCamera.h"

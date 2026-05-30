@@ -1,0 +1,20 @@
+#include "pch.h"
+#include "Texture.h"
+#include "Voxel/Renderer/Renderer.h"
+#include "Platform/OpenGL/OpenGLTexture.h"
+
+namespace Voxel {
+
+Ref<Texture2D> Texture2D::Create(std::string_view path) {
+    switch (Renderer::GetAPI()) {
+        case RendererAPI::API::None:
+            VOXEL_CORE_ASSERT(false, "RendererAPI::None is not supported!");
+            return nullptr;
+        case RendererAPI::API::OpenGL: return CreateRef<OpenGLTexture2D>(path);
+    }
+
+    VOXEL_CORE_ASSERT(false, "Unknown RendererAPI!");
+    return nullptr;
+}
+
+}

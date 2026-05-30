@@ -32,10 +32,10 @@ ExampleLayer::ExampleLayer()
 
     // clang-format off
     float squareVertices[] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.5f,  0.5f, 0.0f,
-        -0.5f,  0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,   0.0f, 0.0f,
+         0.5f, -0.5f, 0.0f,   1.0f, 0.0f,
+         0.5f,  0.5f, 0.0f,   1.0f, 1.0f,
+        -0.5f,  0.5f, 0.0f,   0.0f, 1.0f,
     };
 
     uint32_t squareIndices[] = { 0, 1, 2, 2, 3, 0 };
@@ -45,7 +45,8 @@ ExampleLayer::ExampleLayer()
 
     auto squareVB = Voxel::VertexBuffer::Create(squareVertices, sizeof(squareVertices));
     squareVB->SetLayout({
-        { Voxel::ShaderDataType::Float3, "a_Position" }
+        { Voxel::ShaderDataType::Float3, "a_Position" },
+        { Voxel::ShaderDataType::Float2, "a_TexCoord" },
     });
     m_SquareVA->AddVertexBuffer(squareVB);
 
@@ -53,6 +54,7 @@ ExampleLayer::ExampleLayer()
         Voxel::IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
     m_SquareVA->SetIndexBuffer(squareIB);
 
+#pragma region
     std::string_view vertSrc = R"(
         #version 330 core
             
@@ -83,8 +85,10 @@ ExampleLayer::ExampleLayer()
     )";
 
     m_Shader = Voxel::Shader::Create(vertSrc, fragSrc);
+#pragma endregion
 
-    std::string_view squareVert = R"(
+#pragma region
+    std::string_view flatColorVert = R"(
         #version 330 core
 
         layout(location = 0) in vec3 a_Position;
@@ -97,7 +101,7 @@ ExampleLayer::ExampleLayer()
         }
     )";
 
-    std::string_view squareFrag = R"(
+    std::string_view flatColorFrag = R"(
         #version 330 core
 
         layout(location = 0) out vec4 color;
@@ -109,7 +113,48 @@ ExampleLayer::ExampleLayer()
         }
     )";
 
-    m_SquareShader = Voxel::Shader::Create(squareVert, squareFrag);
+    m_FlatColorShader = Voxel::Shader::Create(flatColorVert, flatColorFrag);
+#pragma endregion
+
+#pragma region
+    std::string_view textureColorVert = R"(
+        #version 330 core
+
+        layout(location = 0) in vec3 a_Position;
+        layout(location = 1) in vec2 a_TexCoord;
+        
+        out vec2 v_TexCoord;
+
+        uniform mat4 u_ViewProjection;
+        uniform mat4 u_Transform;
+
+        void main() {
+            v_TexCoord = a_TexCoord;
+            gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+        }
+    )";
+
+    std::string_view textureColorFrag = R"(
+        #version 330 core
+
+        layout(location = 0) out vec4 color;
+
+        in vec2 v_TexCoord;
+
+        uniform sampler2D u_Texture;
+
+        void main() {
+            color = texture(u_Texture, v_TexCoord);
+        }
+    )";
+
+    m_TextureShader = Voxel::Shader::Create(textureColorVert, textureColorFrag);
+#pragma endregion
+
+    m_Texture = Voxel::Texture2D::Create("assets/textures/bear.png");
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_TextureShader)->Bind();
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_TextureShader)
+        ->UploadUniformInt("u_Texture", 0);
 }
 
 void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
@@ -139,19 +184,23 @@ void ExampleLayer::OnUpdate(Voxel::Timestep ts) {
 
     glm::mat4 scale = glm::scale(glm::mat4(1.0f), glm::vec3(0.1f));
 
-    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_SquareShader)->Bind();
-    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_SquareShader)
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_FlatColorShader)->Bind();
+    std::dynamic_pointer_cast<Voxel::OpenGLShader>(m_FlatColorShader)
         ->UploadUniformFloat3("u_Color", m_SquareColor);
 
     for (int y = 0; y < 20; y++) {
         for (int x = 0; x < 20; x++) {
             glm::vec3 pos(x * 0.11f, y * 0.11f, 0.0f);
             glm::mat4 transform = glm::translate(glm::mat4(1.0f), pos) * scale;
-            Voxel::Renderer::Submit(m_SquareShader, m_SquareVA, transform);
+            Voxel::Renderer::Submit(m_FlatColorShader, m_SquareVA, transform);
         }
     }
 
-    Voxel::Renderer::Submit(m_Shader, m_VertexArray);
+    m_Texture->Bind();
+    Voxel::Renderer::Submit(
+        m_TextureShader, m_SquareVA, glm::scale(glm::mat4(1.0f), glm::vec3(1.0f)));
+
+    // Voxel::Renderer::Submit(m_Shader, m_VertexArray);
     Voxel::Renderer::EndScene();
 }
 
